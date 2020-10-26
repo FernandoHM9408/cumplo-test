@@ -6,6 +6,10 @@ Prueba tecnica para cumplo
 
 - [Docker](https://docs.docker.com/install/)
 - [Docker-Compose](https://docs.docker.com/compose/)
+- [Token de Banxico](https://www.banxico.org.mx/SieAPIRest/service/v1/token)
+
+*Nota*
+- Una vez que se tenga el valor de un token de banxico (https://www.banxico.org.mx/SieAPIRest/service/v1/token), se debe establecer el valor dentro del archivo .env para la varieble BANXICO_TOKEN, el archivo .env esta en la raiz del proyecto
 
 
 # Inicializar el proyecto
