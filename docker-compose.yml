@@ -1,0 +1,62 @@
+version: '3.3'
+
+volumes:
+    cumplo_test_data: {}
+
+services:
+  backend:
+    build:
+      context: ./backend
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/app
+    command: /start.sh
+    entrypoint: /entrypoint.sh
+    restart: always
+    env_file: .env
+
+  frontend:
+    image: node:12.9.1
+    command: yarn serve
+    volumes:
+      - ./.env:/app/.env:ro
+      - ./frontend:/app
+      - /app/node_modules
+    working_dir: /app
+    restart: on-failure
+    ports:
+      - "8080:8080"
+
+  postgres:
+    image: postgres:10-alpine
+    volumes:
+      - cumplo_test_data:/var/lib/postgresql/data
+    env_file: .env
+
+  documentation:
+    restart: always
+    build:
+      context: ./backend
+    depends_on:
+      - backend
+    command: "mkdocs serve"
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8001:8001"
+
+
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8000:80"
+    depends_on:
+      - backend
+    volumes:
+      - ./backend/media/:/media/
+      - ./backend/staticfiles/:/staticfiles/
+      - ./nginx/dev.conf:/etc/nginx/nginx.conf:ro
+    logging:
+      driver: none

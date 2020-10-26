@@ -1,0 +1,13 @@
+site_name: cumplo test
+site_description: Test tecnico para Cumplo
+repo_url: https://github.com/LopsanAMO/cumplo-test
+site_dir: site
+copyright: Copyright &copy; 2020, <a href="https://github.com/LopsanAMO">LopsanAMO</a>.
+dev_addr: 0.0.0.0:8001
+
+nav:
+  - Home: 'index.md'
+  - API:
+      - Tipo de cambio: 'api/currencies.md'
+
+theme: readthedocs
