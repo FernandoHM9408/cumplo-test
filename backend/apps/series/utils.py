@@ -1,5 +1,6 @@
 import requests
 import json
+from datetime import datetime
 from django.conf import settings
 
 def get_currency_value(currency, init_date, end_date):
@@ -8,6 +9,9 @@ def get_currency_value(currency, init_date, end_date):
         "USD": "SF43718",
         "TIIE": "SF331451,SF43783,SF43878"
     }
+    if not init_date or not end_date:
+        init_date = datetime.now().strftime("%Y-%m-%d")
+        end_date = datetime.now().strftime("%Y-%m-%d")
     if currency in currencies.keys():
         currency_value = currencies[currency]
         url = f"https://www.banxico.org.mx/SieAPIRest/service/v1/series/{currency_value}/datos/{init_date}/{end_date}"

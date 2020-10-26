@@ -10,7 +10,7 @@ from apps.series.utils import get_currency_value, calculate_currency_data
 class UDIAPIView(APIView):
     permission_classes = (AllowAny, )
 
-    def get(self, request, currency, init_date, end_date):
+    def get(self, request, currency=None, init_date=None, end_date=None):
         currency_data = get_currency_value(currency, init_date, end_date)
         if currency_data:
             if currency != 'TIIE':
